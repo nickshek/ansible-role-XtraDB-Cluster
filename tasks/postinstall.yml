@@ -4,7 +4,9 @@
     name: "{{ item.name }}"
     login_user: "{{ xtradb_root_user }}"
     login_password: "{{ xtradb_root_password }}"
-    state: present
+    collation: "{{ item.collation | default('utf8_general_ci') }}"
+    encoding: "{{ item.encoding | default('utf8') }}"
+    state: "{{ item.state | default('present') }}"
   with_items: "{{ xtradb_databases }}"
   register: _db
 
